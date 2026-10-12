@@ -1,0 +1,26 @@
+services:
+  # Internal service not exposed to host, simulating private infrastructure
+  internal-service:
+    build: ./internal-service
+    networks:
+      - lab-network
+
+  # Vulnerable web application
+  vulnerable-app:
+    build: ./vulnerable
+    ports:
+      - "5001:5000"
+    networks:
+      - lab-network
+
+  # Secured web application
+  secured-app:
+    build: ./secured
+    ports:
+      - "5002:5000"
+    networks:
+      - lab-network
+
+networks:
+  lab-network:
+    driver: bridge
